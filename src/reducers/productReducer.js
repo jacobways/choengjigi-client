@@ -28,8 +28,13 @@ export default function productReducer ( state = initialState, action ) {
 
 
       const filterObj = state.filter;
-      const categoryArr = [...new Set( productState.map(product => product.category) )];
 
+      // const categoryArr = [...new Set( productState.map(product => product.category) )]; // 익스플로러 사용 불가
+
+      const CategoryDupArr = productState.map(product => product.category);
+      const categoryArr = CategoryDupArr.filter((category, idx) => {
+        return CategoryDupArr.indexOf(category) === idx
+      })
 
       let filterState = {}
 

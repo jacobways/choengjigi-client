@@ -20,15 +20,16 @@ function Footer() {
     // </footer>
 
       <footer className="
-        text-center 
-        text-gray-700 
-        text-center 
-        border-t-4 
-        border-red-500 
-        fixed 
-        inset-x-0 
-        bottom-0 
-        p-4 
+        text-center
+        text-gray-700
+        border-t-4
+        border-red-500
+        relative
+        inset-x-0
+        top-0
+        bottom-0
+        h-16
+        mt-10
         "
       >
         © 2022 Copyright:

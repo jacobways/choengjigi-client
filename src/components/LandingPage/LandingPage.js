@@ -4,7 +4,7 @@ import ShoppingButton from "./ShoppingButton";
 
 function LandingPage() {
   return (
-    <main className="max-w-6xl mx-auto px-4">
+    <main className="max-w-6xl mx-auto px-4 min-h-mainBasic h-auto">
       <Carousel />
       <ShoppingButton />
     </main>

@@ -4,6 +4,10 @@ export default function EditModal( { ItemList, OrderNumber, customer  }) {
 
   const [IsOpened, setIsOpened] = useState(false);
 
+  function numberWithCommas(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  }
+
   return (
     <>
       <button 
@@ -69,8 +73,8 @@ export default function EditModal( { ItemList, OrderNumber, customer  }) {
                           <tr key={item.id}>
                             <td className="px-6 py-4 whitespace-nowrap text-base text-gray-900">{item.item}</td>
                             <td className="px-6 py-4 whitespace-nowrap text-base text-gray-900">{item.quantity}</td>
-                            <td className="px-6 py-4 whitespace-nowrap text-base text-gray-900">{item.price}</td>
-                            <td className="px-6 py-4 whitespace-nowrap text-base text-gray-900">{item.totalPrice}</td>
+                            <td className="px-6 py-4 whitespace-nowrap text-base text-gray-900">{numberWithCommas(item.price)}</td>
+                            <td className="px-6 py-4 whitespace-nowrap text-base text-gray-900">{numberWithCommas(item.totalPrice)}</td>
                             
                           </tr>
                         ))}

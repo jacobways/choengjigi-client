@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from 'react-redux';
 import { setQuantity } from '../../actions';
+import { useNavigate } from "react-router-dom";
+import { NavCart } from '../../actions/nav';
 
 function ProductList() {
   
@@ -25,6 +27,18 @@ function ProductList() {
     dispatch(setQuantity(id, event.target.value))
   }
 
+  const navigate = useNavigate();
+
+  const NavigateToCart = (event) => {
+    event.preventDefault();
+    dispatch(NavCart())
+    navigate('/cart')
+  }
+
+  function numberWithCommas(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  }
+
   return (
     <>
       <div> 
@@ -40,7 +54,7 @@ function ProductList() {
             </div>
             <div className="md:pl-3 md:w-3/4">
                 <div className="flex items-center justify-between w-full pt-1">
-                    <p className="text-base font-black leading-none text-gray-800">{product.name}</p>
+                    <p className="text-xl font-black leading-none text-gray-800">{product.name}</p>
                     
                     <input 
                     className="py-2 px-1 border border-gray-200 mr-6 focus:outline-none"
@@ -50,18 +64,31 @@ function ProductList() {
                     onChange={(event)=>onChangeQuantity(event, product.id)}
                     >
                     </input>
-                    
-
                 </div>
-                <p className="text-xs leading-3 text-gray-600 pt-2">무게: {product.weight}kg | 종류: {product.category} | 형태: {product.form}</p>
-                <p className="text-xs leading-3 text-gray-600 py-4">공급처: {product.supplier}</p> 
-                <p className="text-xs leading-3 text-gray-600 pb-4">효능: {product.effect}</p>
-                {product.note ? 
-                <p className="w-96 text-xs leading-3 text-gray-600">비고: {product.note}</p>
-                : null}
-                <div className="flex items-center justify-between pt-5 pr-6">
 
-                    <p className="text-base font-black leading-none text-gray-800">{product.price} 원</p>
+                <div className="flex justify-between">
+                  <div>
+                    <p className="text-base leading-3 text-gray-600 pt-2">무게: {product.weight}kg | 종류: {product.category} | 형태: {product.form}</p>
+                    <p className="text-base leading-3 text-gray-600 py-4">공급처: {product.supplier}</p> 
+                    <p className="text-base leading-3 text-gray-600 pb-4">효능: {product.effect}</p>
+                    {product.note ? 
+                    <p className="w-96 text-base leading-3 text-gray-600">비고: {product.note}</p>
+                    : null}
+                  </div>
+                  {product.quantity >= 1 ?
+                      <button 
+                        className="bg-pink-500 text-white active:bg-pink-600 font-bold text-sm mt-9 mr-6 mb-6 px-3 rounded shadow hover:shadow-lg outline-none focus:outline-none ease-linear transition-all duration-150" 
+                        type="button"
+                        onClick={NavigateToCart}
+                      >
+                      장바구니 이동
+                    </button>
+                  : null
+                  }
+                </div>
+
+                <div className="flex items-center justify-between pt-5 pr-6">
+                  <p className="text-base font-black leading-none text-gray-800">{numberWithCommas(product.price)} 원</p>
                 </div>
             </div>
         </div>

@@ -1,17 +1,33 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { loadDBProduct } from '../../actions';
+import { NavHome, NavIntro, NavMarket, NavCart, NavCommunity } from '../../actions/nav';
 
 function Navbar() {
+
+
+  const navState = useSelector(state => state.navReducer.nav);
+
   const [menuToggle, setMenuToggle] = useState(false);
 
   const dispatch = useDispatch()
 
-  const UpdateDB = () => {
+  const ClickCart = () => {
     dispatch(loadDBProduct())
+    dispatch(NavCart())
   }
+
+  
+
+  let mobileCurrentPage;
+
+  if (navState.home) mobileCurrentPage = "Home"
+  if (navState.intro) mobileCurrentPage = "사업소개"
+  if (navState.market) mobileCurrentPage = "장보기"
+  if (navState.cart) mobileCurrentPage = "장바구니"
+  if (navState.community) mobileCurrentPage = "생산지발자국"
 
   return (
     <nav className="bg-gray-100">
@@ -22,7 +38,11 @@ function Navbar() {
 
             {/* home */}
             <div>
-              <Link to="/" className="flex items-center py-5 px-2 text-gray-700">
+              <Link 
+              to="/" 
+              className="flex items-center py-5 px-2 text-gray-700"
+              onClick={()=>dispatch(NavHome())}
+              >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   className="h-5 w-5 mr-2 text-blue-400"
@@ -44,38 +64,51 @@ function Navbar() {
           <div className="hidden md:flex items-center space-x-1">
             <Link
               to="/"
-              className="py-5 px-3 text-gray-700 hover:text-gray-900"
+              className={"py-5 px-3 text-gray-700 hover:text-gray-900 " + (navState.home ? "bg-gray-200" : null)}
+              onClick={()=>{dispatch(NavHome())}}
             >
               Home
             </Link>
             <Link
               to="/intro"
-              className="py-5 px-3 text-gray-700 hover:text-gray-900"
+              className={"py-5 px-3 text-gray-700 hover:text-gray-900 " + (navState.intro ? "bg-gray-200" : null)}
+              onClick={()=>{dispatch(NavIntro())}}
             >
               사업소개
             </Link>
             <Link
               to="/market"
-              className="py-5 px-3 text-gray-700 hover:text-gray-900"
+              className={"py-5 px-3 text-gray-700 hover:text-gray-900 " + (navState.market ? "bg-gray-200" : null)}
+              onClick={()=>{dispatch(NavMarket())}}
             >
               장보기
             </Link>
             <Link
               to="/cart"
-              className="py-5 px-3 text-gray-700 hover:text-gray-900"
-              onClick={UpdateDB}
+              className={"py-5 px-3 text-gray-700 hover:text-gray-900 " + (navState.cart ? "bg-gray-200" : null)}
+              onClick={ClickCart}
             >
               장바구니
             </Link>
             <Link
               to="/community"
-              className="py-5 px-3 text-gray-700 hover:text-gray-900"
+              className={"py-5 px-3 text-gray-700 hover:text-gray-900 " + (navState.community ? "bg-gray-200" : null)}
+              onClick={()=>{dispatch(NavCommunity())}}
             >
               생산지발자국
             </Link>
           </div>
 
           {/* mobile menu */}
+
+          {menuToggle ? 
+          null : 
+          <div className="md:hidden flex items-center text-gray-700">
+          {mobileCurrentPage}
+          </div>
+          }
+
+
           <div className="md:hidden flex items-center">
             <button onClick={() => setMenuToggle(!menuToggle)}>
               {menuToggle ? (
@@ -119,31 +152,63 @@ function Navbar() {
        
       { menuToggle ? (
         <div className="md:hidden">
-          <Link to="/intro" className="block py-2 px-4 text-sm hover:bg-gray-200">
+          <Link 
+          to="/intro" 
+          className={"block py-2 px-4 text-sm hover:bg-gray-200 " + (navState.intro ? "bg-gray-200" : null)}
+          onClick={()=>{dispatch(NavIntro())}}
+          >
             사업소개
           </Link>
-          <Link to="/market" className="block py-2 px-4 text-sm hover:bg-gray-200">
+          <Link 
+          to="/market" 
+          className={"block py-2 px-4 text-sm hover:bg-gray-200 " + (navState.market ? "bg-gray-200" : null)}
+          onClick={()=>{dispatch(NavMarket())}}
+          >
             장보기
           </Link>
-          <Link to="/cart" className="block py-2 px-4 text-sm hover:bg-gray-200">
+          <Link 
+          to="/cart" 
+          className={"block py-2 px-4 text-sm hover:bg-gray-200 " + (navState.cart ? "bg-gray-200" : null)}
+          onClick={()=>{dispatch(NavCart())}}
+          >
             장바구니
           </Link>
-          <Link to="/community" className="block py-2 px-4 text-sm hover:bg-gray-200">
+          <Link 
+          to="/community" 
+          className={"block py-2 px-4 text-sm hover:bg-gray-200 " + (navState.community ? "bg-gray-200" : null)}
+          onClick={()=>{dispatch(NavCommunity())}}
+          >
             생산지발자국
           </Link>
         </div>
       ) : (
         <div className="md:hidden hidden">
-          <Link to="/intro" className="block py-2 px-4 text-sm hover:bg-gray-200">
+          <Link 
+          to="/intro" 
+          className={"block py-2 px-4 text-sm hover:bg-gray-200 " + (navState.intro ? "bg-gray-200" : null)}
+          onClick={()=>{dispatch(NavIntro())}}
+          >
             사업소개
           </Link>
-          <Link to="/market" className="block py-2 px-4 text-sm hover:bg-gray-200">
+          <Link 
+          to="/market" 
+          className={"block py-2 px-4 text-sm hover:bg-gray-200 " + (navState.market ? "bg-gray-200" : null)}
+          onClick={()=>{dispatch(NavMarket())}}
+          >
             장보기
           </Link>
-          <Link to="/cart" className="block py-2 px-4 text-sm hover:bg-gray-200">
+          <Link 
+          to="/cart" 
+          className={"block py-2 px-4 text-sm hover:bg-gray-200 " + (navState.cart ? "bg-gray-200" : null)}
+          onClick={()=>{dispatch(NavCart())}}
+          >
             장바구니
           </Link>
-          <Link to="/community" className="block py-2 px-4 text-sm hover:bg-gray-200">
+          <Link 
+          to="/community" 
+          className={"block py-2 px-4 text-sm hover:bg-gray-200 " + (navState.community ? "bg-gray-200" : null)}
+          onClick={()=>{dispatch(NavCommunity())}}
+          >
             생산지발자국
           </Link>
         </div>

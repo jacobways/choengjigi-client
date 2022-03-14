@@ -20,6 +20,10 @@ function ReadOrder() {
       setOrderList(res.data.data)
     })
   }, [])
+
+  function numberWithCommas(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  }
   
   
   return (
@@ -96,7 +100,7 @@ function ReadOrder() {
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{order.CP}</td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{order.email}</td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{order.address}</td>
-                      <td className="px-6 py-4 whitespace-nowrap text-base text-gray-900">{order.totalPrice}</td>
+                      <td className="px-6 py-4 whitespace-nowrap text-base text-gray-900">{numberWithCommas(order.totalPrice)}</td>
                       {/* <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{order.date}</td> */}
                       <DateModal date={order.date} OrderNumber={order.OrderNumber} customer={order.customer} />
                       <td className="px-6 py-4 whitespace-nowrap text-xs text-gray-500">

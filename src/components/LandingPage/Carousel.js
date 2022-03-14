@@ -78,13 +78,13 @@ function Carousel() {
 
 
   return (
-    <section ref={slideRef} className="w-10/12 select-none relative mx-auto">
+    <section ref={slideRef} className="w-10/12 select-none relative mx-auto max-h-96  ">
       <div className="aspect-w-16 aspect-h-9">
         <img src={photos[currentIndex]} alt="" />
         <span className = "flex justify-center items-center bg-black text-white bg-opacity-40 text-3xl">{words[currentIndex]}</span>
       </div>
 
-      <div className="absolute w-full top-1/2 transform -translate-y-1/2 py-2 px-3 flex justify-between items-center">
+      <div className="absolute w-full top-1/2 transform translate-y-1/2 py-2 px-3 flex justify-between items-center">
         <button 
           onClick={onPreviousClick}
           className="bg-black text-white p-1 rounded-full bg-opacity-50 cursor-pointer hover:bg-opacity-100 transition"

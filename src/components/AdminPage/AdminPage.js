@@ -11,7 +11,7 @@ function AdminPage() {
   const token = useSelector(state => state.userReducer.token);
   
   return (
-    <main className="max-w-6xl mx-auto px-4">
+    <main className="max-w-6xl mx-auto px-4 min-h-mainBasic h-auto">
       {token ? 
       <>
         <h3 className="text-xl font-bold mt-4 mb-1">상품 리스트</h3>

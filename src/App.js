@@ -40,7 +40,7 @@ function App() {
 
         {/* <Route exact path="/register" element={< Register />} /> */}
       </Routes>
-      <div className="pb-20"></div>
+      {/* <div className="pb-20"></div> */}
       <Footer />
     </>
   );

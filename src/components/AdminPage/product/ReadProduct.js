@@ -10,6 +10,10 @@ function ReadProduct() {
   // 링크 참고해서 테이블 꾸미기
   
   const ProductList = useSelector(state => state.productReducer.product);
+
+  function numberWithCommas(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  }
   
   return (
     <section>
@@ -84,7 +88,7 @@ function ReadProduct() {
                   {ProductList.map((product, idx) => (
                     <tr key={product.id}>
                       <td className="px-6 py-4 whitespace-nowrap text-base text-gray-900">{product.name}</td>
-                      <td className="px-6 py-4 whitespace-nowrap text-base text-gray-900">{product.price}</td>
+                      <td className="px-6 py-4 whitespace-nowrap text-base text-gray-900">{numberWithCommas(product.price)}</td>
                       <td className="px-6 py-4 whitespace-nowrap text-base text-gray-900">{product.weight}</td>
                       <td className="px-6 py-4 whitespace-nowrap text-base text-gray-900">{product.category}</td>
                       <td className="px-6 py-4 whitespace-nowrap text-base text-gray-900">{product.form}</td>
